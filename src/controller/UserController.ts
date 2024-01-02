@@ -11,6 +11,18 @@ export const createUser = async (req: Request, res: Response) => {
     },
   });
 
+  const isAccessName = await prisma.access.findUnique({
+    where: {
+      name: accessName,
+    },
+  });
+
+  if (!isAccessName) {
+    return res.status(400).json({
+      message: "Este nível de acesso não existe",
+    });
+  }
+
   if (isUserUniqueEmail) {
     return res.status(400).json({
       message: "Já existe um usuário com esse email!",
@@ -28,8 +40,17 @@ export const createUser = async (req: Request, res: Response) => {
         connect: {
           name: accessName,
         },
-      },
-    },
+      }},
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        Access: {
+          select: {
+            name: true
+          }
+        }
+      }
   });
 
   return res.json(user);
