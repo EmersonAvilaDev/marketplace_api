@@ -30,7 +30,7 @@ model Access {
 model Product {
   id         String   @id @default(uuid())
   name       String
-  price      String
+  price      Decimal
   amount     Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

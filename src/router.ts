@@ -2,18 +2,21 @@ import { Router } from "express";
 import { createUser, deleteManyUser } from "./controller/UserController";
 import { createAccess, getAllAccesses } from "./controller/AccessController";
 import { createStore, getAllStore } from "./controller/StoreController";
+import { createProduct } from "./controller/ProductsController";
 
 export const router = Router();
 
-            /* User */
+/* User */
 router.post("/user", createUser);
 router.delete("/delete-users", deleteManyUser);
 
-            /* Access */
+/* Access */
 router.post("/access", createAccess);
 router.get("/accesses", getAllAccesses);
 
-            /* Store */
+/* Store */
 router.post("/store/:userId", createStore);
 router.get("/stores", getAllStore);
 
+/* Products */
+router.post("/product/:storeId", createProduct);

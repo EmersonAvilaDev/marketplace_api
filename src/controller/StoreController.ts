@@ -40,6 +40,14 @@ export const getAllStore = async (req: Request, res: Response) => {
         select: {
           name: true
         }
+      },
+      product: {
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          amount: true
+        }
       }
     }
   });
