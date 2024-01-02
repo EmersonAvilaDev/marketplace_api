@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,6 +14,7 @@ model User {
   password   String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  store      Store[]
   Access     Access?  @relation(fields: [accessId], references: [id])
   accessId   String?
 }
@@ -46,4 +44,6 @@ model Store {
   product    Product[]
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
+  User       User?     @relation(fields: [userId], references: [id])
+  userId     String?
 }
