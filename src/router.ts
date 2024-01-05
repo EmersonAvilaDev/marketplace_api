@@ -3,16 +3,19 @@ import { createUser, deleteManyUser, getAllUsers } from "./controller/UserContro
 import { createAccess, getAllAccesses } from "./controller/AccessController";
 import { createStore, getAllStore } from "./controller/StoreController";
 import { createProduct } from "./controller/ProductsController";
+import { signIn } from "./controller/sessionController";
+import { authMiddleware } from "./middlewares/auth.middleware";
 
 export const router = Router();
 
 /* User */
 router.post("/user", createUser);
+router.post("/sign-in", signIn);
 router.delete("/delete-users", deleteManyUser);
 router.get("/get-all-users", getAllUsers)
 /* Access */
 router.post("/access", createAccess);
-router.get("/accesses", getAllAccesses);
+router.get("/accesses", authMiddleware(["admin"]), getAllAccesses);
 
 /* Store */
 router.post("/store/:userId", createStore);
